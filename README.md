@@ -5,7 +5,20 @@ This README.md provides an explanation of the requirements for a simple DevOps t
 ## 1. Dockerize the Application
 
 ### Dockerfile
-Create a Dockerfile for the Python application. This file should include instructions to install all necessary dependencies, expose the correct port, and incorporate configurations managed by an appropriate .env file.
+> Create a Dockerfile for the Python application. This file should include instructions to install all necessary dependencies, expose the correct port, and incorporate configurations managed by an appropriate .env file.
+
+To build application Docker image run:
+
+```shell
+docker build .
+```
+
+By default `python:3.12.4-slim-bookworm` image is used as base environment. You can change version by setting
+`BASE_IMAGE_VERSION=<python-image-version>` or override image entirely with `BASE_IMAGE=<base-image>` build argument:
+
+```shell
+docker build --build-arg BASE_IMAGE_VERSION=3.13-rc-slim .
+```
 
 ### Build and Test Locally
 Use Docker commands to build an image from the Dockerfile and run a container locally. Ensure the application functions correctly within the container.
