@@ -25,7 +25,18 @@ helm upgrade --install grafana grafana/grafana \
     --namespace monitoring \
     -f grafana/values.yml
 
-helm install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb \
+helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb \
     --version 15.6.12 \
     --namespace default \
     --set auth.enabled=false
+
+helm repo add elastic https://helm.elastic.co
+helm upgrade --install elasticsearch elastic/elasticsearch \
+    --version 8.5.1 \
+    --namespace monitoring
+helm upgrade --install filebeat elastic/filebeat \
+    --version 8.5.1 \
+    --namespace monitoring
+helm upgrade --install kibana elastic/kibana \
+    --version 8.5.1 \
+    --namespace monitoring

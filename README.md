@@ -87,12 +87,28 @@ kubectl port-forward -n monitoring svc/grafana 80
 Configure Filebeat to watch the application's log files and ship them to Elasticsearch.
 
 ### Elasticsearch
-Ensure Elasticsearch is running within the environment to store and index the logs sent from Filebeat.
+> Ensure Elasticsearch is running within the environment to store and index the logs sent from Filebeat.
+
+Part of `run-me.sh` script.
+
+To access ElasticSearch:
+
+```shell
+kubectl get secret -n monitoring elasticsearch-master-credentials -o jsonpath="{.data.password}" | base64 --decode ; echo
+kubectl port-forward -n monitoring svc/elasticsearch-master 9200
+```
 
 ### Kibana
-Set up Kibana to visualize the logs stored in Elasticsearch. Create a dashboard in Kibana to display key information from the application's logs.
+> Set up Kibana to visualize the logs stored in Elasticsearch. Create a dashboard in Kibana to display key information from the application's logs.
 
-By following these steps, you'll effectively Dockerize your application, deploy it using Kubernetes, set up monitoring with Prometheus, and integrate logging with the ELK stack, enabling efficient management, monitoring, and troubleshooting of your application in a DevOps environment.
+Part of `run-me.sh` script.
+
+To access Kibana:
+
+```shell
+kubectl get secret -n monitoring kibana-kibana-es-token -o jsonpath="{.data.token}" | base64 --decode ; echo
+kubectl port-forward -n monitoring svc/kibana-kibana 5601
+```
 
 ## Evaluation Criteria
 
@@ -104,4 +120,3 @@ By following these steps, you'll effectively Dockerize your application, deploy 
 ## Submission
 
 Please create a public GitHub repository and send the link to your repository once you have completed the project to <development@united-remote.com>.
-
