@@ -20,6 +20,8 @@ By default `python:3.12.4-slim-bookworm` image is used as base environment. You 
 docker build --build-arg BASE_IMAGE_VERSION=3.13-rc-slim .
 ```
 
+(Flask handles loading .env with dotenv, nothing to do here.)
+
 ### Build and Test Locally
 Use Docker commands to build an image from the Dockerfile and run a container locally. Ensure the application functions correctly within the container.
 
