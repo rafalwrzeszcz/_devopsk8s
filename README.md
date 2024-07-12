@@ -30,6 +30,16 @@ To run locally use `docker compose up`. You can verify the app is working correc
 
 ## 2. Deploy with Kubernetes
 
+To deploy EKS cluster run:
+
+```shell
+export CLUSTER_NAME=some_cluster
+cd terraform
+terraform init
+terraform apply -var cluster_name=${CLUSTER_NAME}
+aws eks update-kubeconfig --name ${CLUSTER_NAME}
+```
+
 ### Kubernetes Deployment YAML File
 Write a YAML file to describe how Kubernetes should deploy the Docker container. Include specifications such as the container image, resource requirements, number of replicas, and other configurations.
 
@@ -37,7 +47,14 @@ Write a YAML file to describe how Kubernetes should deploy the Docker container.
 Configure a LoadBalancer service in Kubernetes to enable external access to the application.
 
 ### Horizontal Pod Autoscaler (HPA)
-Include a configuration for Horizontal Pod Autoscaler (HPA) to automatically scale the application based on CPU usage.
+> Include a configuration for Horizontal Pod Autoscaler (HPA) to automatically scale the application based on CPU usage.
+
+HPA is built-in with EKS, it needs metrics server (we need to use different port for metrics, because we use Fargate):
+
+```shell
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+helm install metrics-server metrics-server/metrics-server --version 3.12.1 --namespace kube-system --set containerPort=10251
+```
 
 ## 3. Setup Prometheus Monitoring
 
