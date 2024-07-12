@@ -36,6 +36,12 @@ To deploy EKS cluster run:
 ./run-me.sh
 ```
 
+To access MongoDB run:
+
+```shell
+kubectl port-forward -n default svc/mongodb 27017
+```
+
 ### Kubernetes Deployment YAML File
 Write a YAML file to describe how Kubernetes should deploy the Docker container. Include specifications such as the container image, resource requirements, number of replicas, and other configurations.
 
@@ -64,7 +70,7 @@ kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus 909
 ```
 
 ### Visualize Metrics
-Visualize the Prometheus metrics through a simple dashboard
+> Visualize the Prometheus metrics through a simple dashboard
 
 Part of `run-me.sh` script.
 

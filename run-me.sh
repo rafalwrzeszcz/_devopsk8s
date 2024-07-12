@@ -24,3 +24,8 @@ helm upgrade --install grafana grafana/grafana \
     --version 8.3.2 \
     --namespace monitoring \
     -f grafana/values.yml
+
+helm install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb \
+    --version 15.6.12 \
+    --namespace default \
+    --set auth.enabled=false
