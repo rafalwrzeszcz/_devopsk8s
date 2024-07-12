@@ -1,0 +1,15 @@
+services:
+    mongodb:
+        image: "mongo:7.0.7-jammy"
+        ports:
+            - "27017:27017"
+
+    app:
+        build: "."
+        image: "local"
+        environment:
+            - "MONGO_URI=mongodb://mongodb:27017/"
+        depends_on:
+            - "mongodb"
+        ports:
+            - "5000:5000"

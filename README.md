@@ -23,7 +23,10 @@ docker build --build-arg BASE_IMAGE_VERSION=3.13-rc-slim .
 (Flask handles loading .env with dotenv, nothing to do here.)
 
 ### Build and Test Locally
-Use Docker commands to build an image from the Dockerfile and run a container locally. Ensure the application functions correctly within the container.
+> Use Docker commands to build an image from the Dockerfile and run a container locally. Ensure the application functions correctly within the container.
+
+To run locally use `docker compose up`. You can verify the app is working correctly with
+`curl http://localhost:5000/ping`.
 
 ## 2. Deploy with Kubernetes
 
