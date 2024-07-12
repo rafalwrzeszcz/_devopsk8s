@@ -33,11 +33,7 @@ To run locally use `docker compose up`. You can verify the app is working correc
 To deploy EKS cluster run:
 
 ```shell
-export CLUSTER_NAME=some_cluster
-cd terraform
-terraform init
-terraform apply -var cluster_name=${CLUSTER_NAME}
-aws eks update-kubeconfig --name ${CLUSTER_NAME}
+./run-me.sh
 ```
 
 ### Kubernetes Deployment YAML File
@@ -49,12 +45,7 @@ Configure a LoadBalancer service in Kubernetes to enable external access to the 
 ### Horizontal Pod Autoscaler (HPA)
 > Include a configuration for Horizontal Pod Autoscaler (HPA) to automatically scale the application based on CPU usage.
 
-HPA is built-in with EKS, it needs metrics server (we need to use different port for metrics, because we use Fargate):
-
-```shell
-helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
-helm install metrics-server metrics-server/metrics-server --version 3.12.1 --namespace kube-system --set containerPort=10251
-```
+Part of `run-me.sh` script.
 
 ## 3. Setup Prometheus Monitoring
 
@@ -62,7 +53,15 @@ helm install metrics-server metrics-server/metrics-server --version 3.12.1 --nam
 Configure Prometheus to monitor the application by specifying which metrics to scrape. This may include system metrics or custom application metrics.
 
 ### Deploy Prometheus within Kubernetes Cluster
-Deploy Prometheus as a container within the Kubernetes cluster to enable scraping metrics from the application.
+> Deploy Prometheus as a container within the Kubernetes cluster to enable scraping metrics from the application.
+
+Part of `run-me.sh` script.
+
+To access Prometheus:
+
+```shell
+kubectl port-forward -n monitoring prometheus-prometheus-kube-prometheus-prometheus-0 9090
+```
 
 ### Visualize Metrics
 Visualize the Prometheus metrics through a simple dashboard
