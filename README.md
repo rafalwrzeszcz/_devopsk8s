@@ -60,11 +60,20 @@ Part of `run-me.sh` script.
 To access Prometheus:
 
 ```shell
-kubectl port-forward -n monitoring prometheus-prometheus-kube-prometheus-prometheus-0 9090
+kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus 9090
 ```
 
 ### Visualize Metrics
 Visualize the Prometheus metrics through a simple dashboard
+
+Part of `run-me.sh` script.
+
+To access Grafana:
+
+```shell
+kubectl get secret -n monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+kubectl port-forward -n monitoring svc/grafana 80
+```
 
 ## 4. Integrate with ELK Stack
 
