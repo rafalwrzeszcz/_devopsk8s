@@ -33,8 +33,32 @@ data "aws_iam_policy_document" "node_assume_role" {
   }
 }
 
+data "aws_iam_policy_document" "node_allow_ecr" {
+  statement {
+    effect = "Allow"
+
+    resources = ["*"]
+
+    actions = [
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:BatchGetImage",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:GetAuthorizationToken"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "node_allow_ecr" {
+  policy = data.aws_iam_policy_document.node_allow_ecr.json
+}
+
 resource "aws_iam_role" "node_role" {
   assume_role_policy = data.aws_iam_policy_document.node_assume_role.json
+}
+
+resource "aws_iam_role_policy_attachment" "node_allow_ecr" {
+  policy_arn = aws_iam_policy.node_allow_ecr.arn
+  role       = aws_iam_role.node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "node_worker_policy" {

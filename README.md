@@ -43,10 +43,12 @@ kubectl port-forward -n default svc/mongodb 27017
 ```
 
 ### Kubernetes Deployment YAML File
-Write a YAML file to describe how Kubernetes should deploy the Docker container. Include specifications such as the container image, resource requirements, number of replicas, and other configurations.
+> Write a YAML file to describe how Kubernetes should deploy the Docker container. Include specifications such as the container image, resource requirements, number of replicas, and other configurations.
 
 ### LoadBalancer Service
-Configure a LoadBalancer service in Kubernetes to enable external access to the application.
+> Configure a LoadBalancer service in Kubernetes to enable external access to the application.
+
+Part of `run-me.sh` script.
 
 ### Horizontal Pod Autoscaler (HPA)
 > Include a configuration for Horizontal Pod Autoscaler (HPA) to automatically scale the application based on CPU usage.
